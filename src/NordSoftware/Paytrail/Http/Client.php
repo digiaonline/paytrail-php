@@ -169,11 +169,12 @@ class Client extends Object
 
     /**
      * @param int $apiVersion
+     * @throws \NordSoftware\Paytrail\Exception\ApiVersionNotSupported
      */
     public function setApiVersion($apiVersion)
     {
         if (!in_array($apiVersion, self::$supportedApiVersions)) {
-            throw new ApiVersionNotSupported(sprintf('API version %d is not supported', $apiVersion));
+            throw new ApiVersionNotSupported(sprintf('API version %d is not supported.', $apiVersion));
         }
         $this->apiVersion = $apiVersion;
     }

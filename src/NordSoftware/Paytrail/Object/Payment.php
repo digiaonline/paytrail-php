@@ -91,13 +91,14 @@ class Payment extends DataObject
 
     /**
      * @param \NordSoftware\Paytrail\Object\Product $product
+     * @throws \NordSoftware\Paytrail\Exception\TooManyProducts
      */
-    public function addProduct(\NordSoftware\Paytrail\Object\Product $product)
+    public function addProduct(Product $product)
     {
         if (count($this->products) > self::MAX_PRODUCT_COUNT) {
             throw new TooManyProducts(
                 sprintf(
-                    'Paytrail can only handle up to %d different products. Please group products using product.amount.',
+                    'Paytrail can only handle up to %d different products. Please group products using "amount".',
                     self::MAX_PRODUCT_COUNT
                 )
             );
@@ -160,11 +161,12 @@ class Payment extends DataObject
 
     /**
      * @param string $currency
+     * @throws \NordSoftware\Paytrail\Exception\CurrencyNotSupported
      */
     public function setCurrency($currency)
     {
         if (!in_array($currency, self::$supportedCurrencies)) {
-            throw new CurrencyNotSupported(sprintf('Currency "%s" is not supported', $currency));
+            throw new CurrencyNotSupported(sprintf('Currency "%s" is not supported.', $currency));
         }
         $this->currency = $currency;
     }
@@ -179,6 +181,7 @@ class Payment extends DataObject
 
     /**
      * @param string $locale
+     * @throws @throws \NordSoftware\Paytrail\Exception\LocaleNotSupported
      */
     public function setLocale($locale)
     {

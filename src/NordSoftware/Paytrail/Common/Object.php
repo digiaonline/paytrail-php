@@ -15,7 +15,7 @@ use NordSoftware\Paytrail\Exception\PropertyDoesNotExist;
 abstract class Object
 {
     /**
-     * @param $name
+     * @param string $name
      * @return mixed
      */
     function __get($name)
@@ -27,8 +27,8 @@ abstract class Object
     }
 
     /**
-     * @param $name
-     * @param $value
+     * @param string $name
+     * @param mixed $value
      */
     function __set($name, $value)
     {
@@ -40,13 +40,14 @@ abstract class Object
 
     /**
      * @param array $properties
+     * @throws \NordSoftware\Paytrail\Exception\PropertyDoesNotExist
      */
     function configure($properties = array())
     {
         foreach ($properties as $name => $value) {
             if (!property_exists($this, $name)) {
                 throw new PropertyDoesNotExist(
-                    sprintf('Trying to set property "%s"."%s" that does not exist.', __CLASS__, $name)
+                    sprintf('Trying to set property "%s" that does not exist.', __CLASS__ . '.' . $name)
                 );
             }
             $this->$name = $value;
