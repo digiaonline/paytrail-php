@@ -12,6 +12,6 @@ namespace NordSoftware\Paytrail\Exception;
 
 use NordSoftware\Paytrail\Common\Exception;
 
-class UnsupportedLocale extends Exception
+class ApiVersionNotSupported extends Exception
 {
 }

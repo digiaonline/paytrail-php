@@ -12,8 +12,8 @@ namespace NordSoftware\Paytrail\Object;
 
 use NordSoftware\Paytrail\Common\DataObject;
 use NordSoftware\Paytrail\Exception\TooManyProducts;
-use NordSoftware\Paytrail\Exception\UnsupportedCurrency;
-use NordSoftware\Paytrail\Exception\UnsupportedLocale;
+use NordSoftware\Paytrail\Exception\CurrencyNotSupported;
+use NordSoftware\Paytrail\Exception\LocaleNotSupported;
 
 class Payment extends DataObject
 {
@@ -164,7 +164,7 @@ class Payment extends DataObject
     public function setCurrency($currency)
     {
         if (!in_array($currency, self::$supportedCurrencies)) {
-            throw new UnsupportedCurrency(sprintf('Currency "%s" is not supported', $currency));
+            throw new CurrencyNotSupported(sprintf('Currency "%s" is not supported', $currency));
         }
         $this->currency = $currency;
     }
@@ -183,7 +183,7 @@ class Payment extends DataObject
     public function setLocale($locale)
     {
         if (!in_array($locale, self::$supportedLocales)) {
-            throw new UnsupportedLocale(sprintf('Locale "%s" is not supported.', $locale));
+            throw new LocaleNotSupported(sprintf('Locale "%s" is not supported.', $locale));
         }
         $this->locale = $locale;
     }
