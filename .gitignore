@@ -1,0 +1,4 @@
+.idea/*
+tests/_log/*
+vendor/*
+composer.phar
