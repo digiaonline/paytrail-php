@@ -13,7 +13,7 @@ namespace NordSoftware\Paytrail\Http;
 use Guzzle\Http\Message\Response;
 use NordSoftware\Paytrail\Common\Object;
 use NordSoftware\Paytrail\Exception\PaymentFailed;
-use NordSoftware\Paytrail\Exception\UnsupportedApiVersion;
+use NordSoftware\Paytrail\Exception\ApiVersionNotSupported;
 
 class Client extends Object
 {
@@ -173,7 +173,7 @@ class Client extends Object
     public function setApiVersion($apiVersion)
     {
         if (!in_array($apiVersion, self::$supportedApiVersions)) {
-            throw new UnsupportedApiVersion(sprintf('API version %d is not supported', $apiVersion));
+            throw new ApiVersionNotSupported(sprintf('API version %d is not supported', $apiVersion));
         }
         $this->apiVersion = $apiVersion;
     }
