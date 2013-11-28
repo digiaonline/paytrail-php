@@ -173,7 +173,7 @@ class Client extends Object
     public function setApiVersion($apiVersion)
     {
         if (!in_array($apiVersion, self::$supportedApiVersions)) {
-            throw new UnsupportedApiVersion('API version %d is not supported', $apiVersion);
+            throw new UnsupportedApiVersion(sprintf('API version %d is not supported', $apiVersion));
         }
         $this->apiVersion = $apiVersion;
     }
