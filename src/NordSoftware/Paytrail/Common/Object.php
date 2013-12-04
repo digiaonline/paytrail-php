@@ -45,11 +45,6 @@ abstract class Object
     function configure($properties = array())
     {
         foreach ($properties as $name => $value) {
-            if (!property_exists($this, $name)) {
-                throw new PropertyDoesNotExist(
-                    sprintf('Trying to set property "%s" that does not exist.', __CLASS__ . '.' . $name)
-                );
-            }
             $this->$name = $value;
         }
     }
