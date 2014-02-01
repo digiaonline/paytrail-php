@@ -17,12 +17,25 @@ class Result extends Object
     /**
      * @var string
      */
+    protected $orderNumber;
+
+    /**
+     * @var string
+     */
     protected $token;
 
     /**
      * @var string
      */
     protected $url;
+
+    /**
+     * @return string
+     */
+    public function getOrderNumber()
+    {
+        return $this->orderNumber;
+    }
 
     /**
      * @return string

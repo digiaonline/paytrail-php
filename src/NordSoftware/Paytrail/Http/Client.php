@@ -70,7 +70,7 @@ class Client extends Object
             throw new PaymentFailed('Server returned a non-JSON result.');
         }
 
-        $body = json_decode($response->getMessage());
+        $body = json_decode(substr($response->getMessage(), strpos($response->getMessage(), '{')));
 
         if ($response->getStatusCode() !== 201) {
             throw new PaymentFailed(
@@ -81,8 +81,9 @@ class Client extends Object
         $result = new Result;
         $result->configure(
             array(
-                'token' => $body['token'],
-                'url'   => $body['url'],
+                'orderNumber' => $body->orderNumber,
+                'token' => $body->token,
+                'url' => $body->url,
             )
         );
         return $result;

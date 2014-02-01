@@ -111,20 +111,24 @@ class Payment extends DataObject
      */
     public function toArray()
     {
-        $array = array(
-            'orderNumber'     => $this->orderNumber,
-            'referenceNumber' => $this->referenceNumber,
-            'description'     => $this->description,
-            'currency'        => $this->currency,
-            'locale'          => $this->locale,
-            'urlSet'          => $this->urlSet->toArray(),
-            'orderDetails'    => array(
-                'includeVat'        => $this->vatMode,
-                'products'          => array(),
-            ),
+        $array = array();
+        $array['orderNumber'] = $this->orderNumber;
+        if (isset($this->referenceNumber)) {
+            $array['referenceNumber'] = $this->referenceNumber;
+        }
+        if (isset($this->description)) {
+            $array['description'] = $this->description;
+        }
+        $array['currency'] = $this->currency;
+        if (isset($this->locale)) {
+            $array['locale'] = $this->locale;
+        }
+        $array['orderDetails'] = array(
+            'includeVat' => $this->vatMode,
+            'products' => array(),
         );
         if ($this->urlSet !== null) {
-            $array['urlset'] = $this->urlSet->toArray();
+            $array['urlSet'] = $this->urlSet->toArray();
         }
         if ($this->contact !== null) {
             $array['orderDetails']['contact'] = $this->contact->toArray();
