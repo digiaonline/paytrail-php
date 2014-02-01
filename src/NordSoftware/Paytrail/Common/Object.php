@@ -18,7 +18,7 @@ abstract class Object
      * @param string $name
      * @return mixed
      */
-    function __get($name)
+    public function __get($name)
     {
         $getter = 'get' . $name;
         if (method_exists($this, $getter)) {
@@ -30,7 +30,7 @@ abstract class Object
      * @param string $name
      * @param mixed $value
      */
-    function __set($name, $value)
+    public function __set($name, $value)
     {
         $setter = 'set' . $name;
         if (method_exists($this, $setter)) {
@@ -42,7 +42,7 @@ abstract class Object
      * @param array $properties
      * @throws \NordSoftware\Paytrail\Exception\PropertyDoesNotExist
      */
-    function configure($properties = array())
+    public function configure($properties = array())
     {
         foreach ($properties as $name => $value) {
             $this->$name = $value;
