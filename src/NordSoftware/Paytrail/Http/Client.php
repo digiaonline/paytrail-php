@@ -81,8 +81,9 @@ class Client extends Object
         $result = new Result;
         $result->configure(
             array(
-                'token' => $body['token'],
-                'url'   => $body['url'],
+                'orderNumber' => $body->orderNumber,
+                'token' => $body->token,
+                'url' => $body->url,
             )
         );
         return $result;
