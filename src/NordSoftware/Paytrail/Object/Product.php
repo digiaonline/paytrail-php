@@ -51,7 +51,7 @@ class Product extends DataObject
     /**
      * @var int
      */
-    protected $type;
+    protected $type = self::TYPE_NORMAL;
 
     /**
      * @return array
