@@ -9,6 +9,9 @@ before_script:
 
 script: vendor/bin/codecept run unit
 
+after_success:
+  - vendor/bin/codecept run --coverage --report
+
 branches:
   only:
     - master
