@@ -7,10 +7,7 @@ before_script:
   - composer self-update
   - composer install --prefer-source
 
-script: vendor/bin/codecept run unit
-
-after_success:
-  - vendor/bin/codecept run --coverage --report
+script: vendor/bin/codecept run unit --coverage --report
 
 branches:
   only:
