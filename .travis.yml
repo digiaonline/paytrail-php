@@ -11,6 +11,7 @@ before_script:
 script: vendor/bin/codecept run unit --coverage --report --xml
 
 after_success:
-  - ls -l
-  - ls -l tests
   - ls -l tests/_log
+  - cat -l tests/_log/coverage.xml
+  - cat -l tests/_log/report.xml
+  - php vendor/bin/coveralls -v
