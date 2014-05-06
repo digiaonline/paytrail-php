@@ -16,5 +16,5 @@ after_success:
   - cat tests/_log/report.xml
   - mkdir build
   - mkdir build/logs
-  - cp tests/_log/report.xml build/logs
+  - cp tests/_log/report.xml build/logs/clover.xml
   - php vendor/bin/coveralls -v
