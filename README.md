@@ -1,6 +1,8 @@
 paytrail-php
 ============
 
+[![Build Status](https://travis-ci.org/nordsoftware/paytrail-php.svg?branch=master)](https://travis-ci.org/nordsoftware/paytrail-php)
+
 Paytrail REST client for PHP.
 
 # Usage
