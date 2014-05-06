@@ -12,8 +12,3 @@ script: vendor/bin/codecept run unit --coverage --report --xml
 
 after_success:
   - ls
-
-
-branches:
-  only:
-    - master
