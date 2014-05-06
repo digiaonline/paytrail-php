@@ -6,8 +6,13 @@ php:
 before_script:
   - composer self-update
   - composer install --prefer-source
+  - composer update satooshi/php-coveralls --dev
 
-script: vendor/bin/codecept run unit --coverage --report
+script: vendor/bin/codecept run unit --coverage --report --xml
+
+after_success:
+  - ls
+
 
 branches:
   only:
