@@ -1,0 +1,5 @@
+# .coveralls.yml configuration
+
+# for php-coveralls
+src_dir: src
+coverage_clover: tests/_log/coverage.xml
