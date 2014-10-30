@@ -17,7 +17,7 @@ use NordSoftware\Paytrail\Exception\ApiVersionNotSupported;
 
 class Client extends Object
 {
-    const API_ENDPOINT = 'https://payment.verkkomaksut.fi';
+    const API_ENDPOINT = 'https://payment.paytrail.com';
 
     /**
      * @var int
