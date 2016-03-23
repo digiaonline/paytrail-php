@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * This file is part of Paytrail.
  *
  * (c) 2013 Nord Software
@@ -8,29 +8,43 @@
  * file that was distributed with this source code.
  */
 
-namespace NordSoftware\Paytrail\Http;
+namespace Paytrail\Http;
 
-use NordSoftware\Paytrail\Common\Object;
+use Paytrail\Common\Object;
 
+/**
+ * Class Result.
+ *
+ * @package Paytrail\Http
+ */
 class Result extends Object
 {
+
     /**
-     * @var string
+     * Order number.
+     *
+     * @var string $orderNumber
      */
     protected $orderNumber;
 
     /**
-     * @var string
+     * Token.
+     *
+     * @var string $token
      */
     protected $token;
 
     /**
-     * @var string
+     * URL.
+     *
+     * @var string $url
      */
     protected $url;
 
     /**
-     * @return string
+     * Get order number.
+     *
+     * @return string The order number.
      */
     public function getOrderNumber()
     {
@@ -38,7 +52,9 @@ class Result extends Object
     }
 
     /**
-     * @return string
+     * Get token.
+     *
+     * @return string The token.
      */
     public function getToken()
     {
@@ -46,7 +62,9 @@ class Result extends Object
     }
 
     /**
-     * @return string
+     * Get URL.
+     *
+     * @return string The URL.
      */
     public function getUrl()
     {
