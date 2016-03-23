@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * This file is part of Paytrail.
  *
  * (c) 2013 Nord Software
@@ -8,49 +8,57 @@
  * file that was distributed with this source code.
  */
 
-namespace NordSoftware\Paytrail\Object;
+namespace Paytrail\Object;
 
-use NordSoftware\Paytrail\Common\DataObject;
+use Paytrail\Common\DataObject;
 
+/**
+ * Class Contact.
+ *
+ * @package Paytrail\Object
+ */
 class Contact extends DataObject
 {
+
     /**
-     * @var string
+     * @var string $firstName
      */
     protected $firstName;
 
     /**
-     * @var string
+     * @var string $lastName
      */
     protected $lastName;
 
     /**
-     * @var string
+     * @var string $email
      */
     protected $email;
 
     /**
-     * @var string
+     * @var string $phoneNumber
      */
     protected $phoneNumber;
 
     /**
-     * @var string
+     * @var string $mobileNumber
      */
     protected $mobileNumber;
 
     /**
-     * @var string
+     * @var string $companyName
      */
     protected $companyName;
 
     /**
-     * @var \NordSoftware\Paytrail\Object\Address
+     * @var \Paytrail\Object\Address $address
      */
     protected $address;
 
     /**
-     * @return array
+     * Convert properties to array.
+     *
+     * @return array The
      */
     public function toArray()
     {
@@ -65,11 +73,14 @@ class Contact extends DataObject
         if ($this->address !== null) {
             $array['address'] = $this->address->toArray();
         }
+
         return $array;
     }
 
     /**
-     * @return string
+     * Get first name.
+     *
+     * @return string The first name.
      */
     public function getFirstName()
     {
@@ -77,7 +88,9 @@ class Contact extends DataObject
     }
 
     /**
-     * @return string
+     * Get last name.
+     *
+     * @return string The last name.
      */
     public function getLastName()
     {
@@ -85,7 +98,9 @@ class Contact extends DataObject
     }
 
     /**
-     * @return string
+     * Get email.
+     *
+     * @return string The email.
      */
     public function getEmail()
     {
@@ -93,7 +108,9 @@ class Contact extends DataObject
     }
 
     /**
-     * @return string
+     * Get phone number.
+     *
+     * @return string The phone number.
      */
     public function getPhoneNumber()
     {
@@ -101,7 +118,9 @@ class Contact extends DataObject
     }
 
     /**
-     * @return string
+     * Get mobile number.
+     *
+     * @return string The mobile number.
      */
     public function getMobileNumber()
     {
@@ -109,7 +128,9 @@ class Contact extends DataObject
     }
 
     /**
-     * @return string
+     * Get company name.
+     *
+     * @return string The company name.
      */
     public function getCompanyName()
     {
@@ -117,7 +138,9 @@ class Contact extends DataObject
     }
 
     /**
-     * @return \NordSoftware\Paytrail\Object\Address
+     * Get address.
+     *
+     * @return \Paytrail\Object\Address The address object.
      */
     public function getAddress()
     {

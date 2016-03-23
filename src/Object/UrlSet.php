@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * This file is part of Paytrail.
  *
  * (c) 2013 Nord Software
@@ -8,33 +8,49 @@
  * file that was distributed with this source code.
  */
 
-namespace NordSoftware\Paytrail\Object;
+namespace Paytrail\Object;
 
-use NordSoftware\Paytrail\Common\DataObject;
+use Paytrail\Common\DataObject;
 
+/**
+ * Class UrlSet.
+ *
+ * @package Paytrail\Object
+ */
 class UrlSet extends DataObject
 {
+
     /**
-     * @var string
+     * URL for successful payments.
+     *
+     * @var string $successUrl
      */
     protected $successUrl;
 
     /**
-     * @var string
+     * URL for failed payments.
+     *
+     * @var string $failureUrl
      */
     protected $failureUrl;
 
     /**
-     * @var string
+     * URL for payment notifications.
+     *
+     * @var string $notificationUrl
      */
     protected $notificationUrl;
 
     /**
-     * @var string
+     * URL for pending payments.
+     *
+     * @var string $pendingUrl
      */
     protected $pendingUrl;
 
     /**
+     * Convert the URLSet object to an array.
+     *
      * @return array
      */
     public function toArray()
@@ -48,7 +64,9 @@ class UrlSet extends DataObject
     }
 
     /**
-     * @return string
+     * Get success URL.
+     *
+     * @return string The URL.
      */
     public function getSuccessUrl()
     {
@@ -56,7 +74,9 @@ class UrlSet extends DataObject
     }
 
     /**
-     * @return string
+     * Get failure URL.
+     *
+     * @return string The URL.
      */
     public function getFailureUrl()
     {
@@ -64,7 +84,9 @@ class UrlSet extends DataObject
     }
 
     /**
-     * @return string
+     * Get notification URL.
+     *
+     * @return string The URL.
      */
     public function getNotificationUrl()
     {
@@ -72,7 +94,9 @@ class UrlSet extends DataObject
     }
 
     /**
-     * @return string
+     * Get pending URL.
+     *
+     * @return string The URL.
      */
     public function getPendingUrl()
     {

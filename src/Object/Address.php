@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * This file is part of Paytrail.
  *
  * (c) 2013 Nord Software
@@ -8,29 +8,35 @@
  * file that was distributed with this source code.
  */
 
-namespace NordSoftware\Paytrail\Object;
+namespace Paytrail\Object;
 
-use NordSoftware\Paytrail\Common\DataObject;
+use Paytrail\Common\DataObject;
 
+/**
+ * Class Address.
+ *
+ * @package Paytrail\Object
+ */
 class Address extends DataObject
 {
+
     /**
-     * @var string
+     * @var string $streetAddress
      */
     protected $streetAddress;
 
     /**
-     * @var string
+     * @var string $postalCode
      */
     protected $postalCode;
 
     /**
-     * @var string
+     * @var string $postOffice
      */
     protected $postOffice;
 
     /**
-     * @var string
+     * @var string $countryCode
      */
     protected $countryCode;
 
@@ -48,7 +54,9 @@ class Address extends DataObject
     }
 
     /**
-     * @return string
+     * Get street address.
+     *
+     * @return string The street address.
      */
     public function getStreetAddress()
     {
@@ -56,7 +64,9 @@ class Address extends DataObject
     }
 
     /**
-     * @return string
+     * Get postal code.
+     *
+     * @return string The postal code.
      */
     public function getPostalCode()
     {
@@ -64,7 +74,9 @@ class Address extends DataObject
     }
 
     /**
-     * @return string
+     * Get post office.
+     *
+     * @return string The post office.
      */
     public function getPostOffice()
     {
@@ -72,7 +84,9 @@ class Address extends DataObject
     }
 
     /**
-     * @return string
+     * Get country code.
+     *
+     * @return string The country code.
      */
     public function getCountryCode()
     {

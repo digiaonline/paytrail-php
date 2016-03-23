@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * This file is part of Paytrail.
  *
  * (c) 2013 Nord Software
@@ -8,69 +8,110 @@
  * file that was distributed with this source code.
  */
 
-namespace NordSoftware\Paytrail\Object;
+namespace Paytrail\Object;
 
-use NordSoftware\Paytrail\Common\DataObject;
+use Paytrail\Common\DataObject;
 
+/**
+ * Class Product.
+ *
+ * @package Paytrail\Object
+ */
 class Product extends DataObject
 {
-    const TYPE_NORMAL   = 1;
-    const TYPE_POSTAL   = 2;
+
+    /**
+     * Product type normal.
+     *
+     * @var int TYPE_NORMAL
+     */
+    const TYPE_NORMAL = 1;
+
+    /**
+     * Product type postal.
+     *
+     * @var int TYPE_POSTAL
+     */
+    const TYPE_POSTAL = 2;
+
+    /**
+     * Product type handling.
+     *
+     * @var int TYPE_HANDLING
+     */
     const TYPE_HANDLING = 3;
 
     /**
-     * @var string
+     * Product title.
+     *
+     * @var string $title
      */
     protected $title;
 
     /**
-     * @var string
+     * Product code.
+     *
+     * @var string $code
      */
     protected $code;
 
     /**
-     * @var float
+     * Product amount.
+     *
+     * @var float $amount
      */
     protected $amount;
 
     /**
-     * @var float
+     * Product price.
+     *
+     * @var float $price
      */
     protected $price;
 
     /**
-     * @var float
+     * Product VAT.
+     *
+     * @var float $vat
      */
     protected $vat;
 
     /**
-     * @var float
+     * Product discount.
+     *
+     * @var float $discount
      */
     protected $discount;
 
     /**
-     * @var int
+     * Product type, defaults to TYPE_NORMAL.
+     *
+     * @var int $type
      */
     protected $type = self::TYPE_NORMAL;
 
     /**
+     * Convert Product object to array.
+     *
      * @return array
      */
     public function toArray()
     {
         return array(
-            'title'     => $this->title,
-            'code'      => $this->code,
-            'amount'    => $this->amount,
-            'price'     => $this->price,
-            'vat'       => $this->vat,
-            'discount'  => $this->discount,
-            'type'      => $this->type,
+            'title'    => $this->title,
+            'code'     => $this->code,
+            'amount'   => $this->amount,
+            'price'    => $this->price,
+            'vat'      => $this->vat,
+            'discount' => $this->discount,
+            'type'     => $this->type,
         );
     }
 
     /**
-     * @return string
+     * Get product title.
+     *
+     * @return string The title.
      */
     public function getTitle()
     {
@@ -78,7 +119,9 @@ class Product extends DataObject
     }
 
     /**
-     * @return string
+     * Get product code.
+     *
+     * @return string The code.
      */
     public function getCode()
     {
@@ -86,7 +129,9 @@ class Product extends DataObject
     }
 
     /**
-     * @return float
+     * Get product amount.
+     *
+     * @return float The amount.
      */
     public function getAmount()
     {
@@ -94,7 +139,9 @@ class Product extends DataObject
     }
 
     /**
-     * @return float
+     * Get product price.
+     *
+     * @return float The price.
      */
     public function getPrice()
     {
@@ -102,7 +149,9 @@ class Product extends DataObject
     }
 
     /**
-     * @return float
+     * Get product VAT.
+     *
+     * @return float The VAT.
      */
     public function getVat()
     {
@@ -110,7 +159,9 @@ class Product extends DataObject
     }
 
     /**
-     * @return float
+     * Get product discount.
+     *
+     * @return float The discount.
      */
     public function getDiscount()
     {
@@ -118,7 +169,9 @@ class Product extends DataObject
     }
 
     /**
-     * @return int
+     * Get product type.
+     *
+     * @return int The type.
      */
     public function getType()
     {
