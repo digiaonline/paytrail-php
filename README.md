@@ -12,12 +12,12 @@ Paytrail REST client for PHP.
 
 require(__DIR__ . '/vendor/autoload.php');
 
-use NordSoftware\Paytrail\Object\UrlSet;
-use NordSoftware\Paytrail\Object\Address;
-use NordSoftware\Paytrail\Object\Contact;
-use NordSoftware\Paytrail\Object\Payment;
-use NordSoftware\Paytrail\Object\Product;
-use NordSoftware\Paytrail\Http\Client;
+use Paytrail\Object\UrlSet;
+use Paytrail\Object\Address;
+use Paytrail\Object\Contact;
+use Paytrail\Object\Payment;
+use Paytrail\Object\Product;
+use Paytrail\Http\Client;
 
 $urlSet = new UrlSet;
 $urlSet->configure(array(
@@ -76,3 +76,6 @@ try {
 
 header('Location: ' . $result->getUrl());
 ```
+
+# License
+MIT. See [LICENSE](LICENSE).
