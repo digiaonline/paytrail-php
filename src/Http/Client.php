@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * This file is part of Paytrail.
  *
  * (c) 2013 Nord Software
@@ -8,39 +8,59 @@
  * file that was distributed with this source code.
  */
 
-namespace NordSoftware\Paytrail\Http;
+namespace Paytrail\Http;
 
-use Guzzle\Http\Message\Response;
-use NordSoftware\Paytrail\Common\Object;
-use NordSoftware\Paytrail\Exception\PaymentFailed;
-use NordSoftware\Paytrail\Exception\ApiVersionNotSupported;
+use GuzzleHttp\Psr7\Request;
+use Paytrail\Common\Object;
+use Paytrail\Exception\PaymentFailed;
+use Paytrail\Exception\ApiVersionNotSupported;
+use Paytrail\Object\Payment;
 
+/**
+ * Class Client.
+ *
+ * @package Paytrail\Http
+ */
 class Client extends Object
 {
+
+    /**
+     * The Paytrail API endpoint.
+     *
+     * @var string API_ENDPOINT
+     */
     const API_ENDPOINT = 'https://payment.paytrail.com';
 
     /**
-     * @var int
+     * The Paytrail API version.
+     *
+     * @var int $apiVersion
      */
     protected $apiVersion = 1;
 
     /**
-     * @var bool
+     * Test mode on/off.
+     *
+     * @var bool $testMode
      */
     protected $testMode = false;
 
     /**
-     * @var string
+     * The Paytrail API key.
+     *
+     * @var string $_apiKey
      */
     private $_apiKey = '13466';
 
     /**
-     * @var string
+     * The Paytrail API secret.
+     *
+     * @var string $_apiSecret
      */
     private $_apiSecret = '6pKF4jkv97zmqBJ3ZL8gUw5DfT2NMQ';
 
     /**
-     * @var \Guzzle\Http\Client
+     * @var \GuzzleHttp\Client
      */
     private $_client;
 
@@ -50,27 +70,33 @@ class Client extends Object
     static $supportedApiVersions = array(1);
 
     /**
-     * @param string $url
+     * Connect client.
+     *
+     * @param string $url The URL to connect to, defaults to API_ENDPOINT.
      */
     public function connect($url = self::API_ENDPOINT)
     {
-        $this->_client = new \Guzzle\Http\Client($url);
+        $this->_client = new \GuzzleHttp\Client(array('base_uri' => $url));
     }
 
     /**
-     * @param \NordSoftware\Paytrail\Object\Payment $payment
-     * @return \NordSoftware\Paytrail\Http\Result
-     * @throws \NordSoftware\Paytrail\Exception\PaymentFailed
+     * Processes the payment.
+     *
+     * @param Payment $payment The payment object.
+     *
+     * @return \Paytrail\Http\Result
+     *
+     * @throws \Paytrail\Exception\PaymentFailed
      */
-    public function processPayment(\NordSoftware\Paytrail\Object\Payment $payment)
+    public function processPayment(Payment $payment)
     {
         $response = $this->postRequest('/api-payment/create', $payment->toJson());
 
-        if ($response->getContentType() !== 'application/json') {
+        if ( ! in_array('application/json', $response->getHeader('Content-Type'))) {
             throw new PaymentFailed('Server returned a non-JSON result.');
         }
 
-        $body = json_decode(substr($response->getMessage(), strpos($response->getMessage(), '{')));
+        $body = json_decode((string)$response->getBody());
 
         if ($response->getStatusCode() !== 201) {
             throw new PaymentFailed(
@@ -82,31 +108,38 @@ class Client extends Object
         $result->configure(
             array(
                 'orderNumber' => $body->orderNumber,
-                'token' => $body->token,
-                'url' => $body->url,
+                'token'       => $body->token,
+                'url'         => $body->url,
             )
         );
+
         return $result;
     }
 
     /**
-     * @param string $checksum
-     * @param string $orderNumber
-     * @param int $timestamp
-     * @param string $paid
-     * @param int $method
+     * Validates the given checksum against the order.
+     *
+     * @param string $checksum    Checksum to validate.
+     * @param string $orderNumber The order number.
+     * @param int    $timestamp   The timestamp of the order.
+     * @param string $paid        Payment paid.
+     * @param int    $method      The method.
+     *
      * @return bool
      */
-    protected function validateChecksum($checksum, $orderNumber, $timestamp, $paid, $method)
+    public function validateChecksum($checksum, $orderNumber, $timestamp, $paid, $method)
     {
         return $checksum === $this->calculateChecksum($orderNumber, $timestamp, $paid, $method);
     }
 
     /**
-     * @param string $orderNumber
-     * @param int $timestamp
-     * @param string $paid
-     * @param int $method
+     * Calculates the checksum.
+     *
+     * @param string $orderNumber The order number.
+     * @param int    $timestamp   The timestamp of the order.
+     * @param string $paid        Payment paid.
+     * @param int    $method      The method.
+     *
      * @return string
      */
     protected function calculateChecksum($orderNumber, $timestamp, $paid, $method)
@@ -115,37 +148,44 @@ class Client extends Object
     }
 
     /**
-     * @param $uri
-     * @param string|null $body
-     * @param array $options
-     * @return \Guzzle\Http\Message\Response
+     * Runs a POST request.
+     *
+     * @param string      $uri     The URI to post to.
+     * @param string|null $body    The body to post.
+     * @param array       $options The options.
+     *
+     * @return \Psr\Http\Message\ResponseInterface
      */
     protected function postRequest($uri, $body = null, $options = array())
     {
         if ($this->testMode) {
             $options['debug'] = true;
         }
-        return $this->_client->post(
-            $uri,
+
+        $headers = array(
+            'Content-Type'               => 'application/json',
+            'Accept'                     => 'application/json',
+            'X-Verkkomaksut-Api-Version' => $this->apiVersion,
+        );
+
+        $options = array_merge(
             array(
-                'Content-Type' => 'application/json',
-                'Accept' => 'application/json',
-                'X-Verkkomaksut-Api-Version' => $this->apiVersion,
+                'auth'            => array($this->_apiKey, $this->_apiSecret),
+                'timeout'         => 30,
+                'connect_timeout' => 10,
             ),
-            $body,
-            array_merge(
-                array(
-                    'auth' => array($this->_apiKey, $this->_apiSecret),
-                    'timeout' => 30,
-                    'connect_timeout' => 10,
-                ),
-                $options
-            )
-        )->send();
+            $options
+        );
+
+        $request = new Request('POST', $uri, $headers, $body);
+
+        return $this->_client->send($request, $options);
     }
 
     /**
-     * @param string $apiKey
+     * Set the Paytrail API key.
+     *
+     * @param string $apiKey The API key.
      */
     public function setApiKey($apiKey)
     {
@@ -153,7 +193,9 @@ class Client extends Object
     }
 
     /**
-     * @param string $apiSecret
+     * Set the Paytrail API secret.
+     *
+     * @param string $apiSecret The API secret.
      */
     public function setApiSecret($apiSecret)
     {
@@ -161,6 +203,8 @@ class Client extends Object
     }
 
     /**
+     * Get the client.
+     *
      * @return \Guzzle\Http\Client
      */
     public function getClient()
@@ -169,12 +213,15 @@ class Client extends Object
     }
 
     /**
-     * @param int $apiVersion
-     * @throws \NordSoftware\Paytrail\Exception\ApiVersionNotSupported
+     * Set the Paytrail API version.
+     *
+     * @param int $apiVersion The API version.
+     *
+     * @throws \Paytrail\Exception\ApiVersionNotSupported
      */
     public function setApiVersion($apiVersion)
     {
-        if (!in_array($apiVersion, self::$supportedApiVersions)) {
+        if ( ! in_array($apiVersion, self::$supportedApiVersions)) {
             throw new ApiVersionNotSupported(sprintf('API version %d is not supported.', $apiVersion));
         }
         $this->apiVersion = $apiVersion;
