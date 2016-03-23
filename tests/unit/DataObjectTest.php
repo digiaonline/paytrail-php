@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * This file is part of Paytrail.
  *
  * (c) 2013 Nord Software
@@ -8,9 +8,11 @@
  * file that was distributed with this source code.
  */
 
-use Codeception\Util\Stub;
-use NordSoftware\Paytrail\Common\DataObject;
+use Paytrail\Common\DataObject;
 
+/**
+ * Class DataDummy.
+ */
 class DataDummy extends DataObject
 {
     /**
@@ -24,6 +26,9 @@ class DataDummy extends DataObject
     }
 }
 
+/**
+ * Class DataObjectTest.
+ */
 class DataObjectTest extends \Codeception\TestCase\Test
 {
    /**
@@ -31,6 +36,9 @@ class DataObjectTest extends \Codeception\TestCase\Test
     */
     protected $codeGuy;
 
+    /**
+     * Tests toJson function.
+     */
     public function testToJson()
     {
         $object = new DataDummy;

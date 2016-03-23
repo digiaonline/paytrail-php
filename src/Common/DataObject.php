@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * This file is part of Paytrail.
  *
  * (c) 2013 Nord Software
@@ -8,18 +8,29 @@
  * file that was distributed with this source code.
  */
 
-namespace NordSoftware\Paytrail\Common;
+namespace Paytrail\Common;
 
+/**
+ * Class DataObject.
+ *
+ * @package Paytrail\Common
+ */
 abstract class DataObject extends Object
 {
+
     /**
+     * Convert the object to an array.
+     *
      * @return array
      */
     abstract public function toArray();
 
     /**
-     * @param array $options
-     * @return string
+     * JSON encode the object.
+     *
+     * @param int $options Bitmask for JSON encode.
+     *
+     * @return string The JSON encoded string.
      */
     public function toJson($options = 0)
     {

@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * This file is part of Paytrail.
  *
  * (c) 2013 Nord Software
@@ -8,8 +8,13 @@
  * file that was distributed with this source code.
  */
 
-namespace NordSoftware\Paytrail\Common;
+namespace Paytrail\Common;
 
+/**
+ * Class Exception.
+ *
+ * @package Paytrail\Common
+ */
 class Exception extends \Exception
 {
 }
