@@ -1,5 +1,8 @@
 language: php
 
+# Use container-based infrastructure
+sudo: false
+
 php:
   - 5.3
   - 5.4
