@@ -77,5 +77,23 @@ try {
 header('Location: ' . $result->getUrl());
 ```
 
+# Confirming a payment
+
+```php
+
+<?php
+$client = new Client('13466', '6pKF4jkv97zmqBJ3ZL8gUw5DfT2NMQ');
+$client->connect();
+if ($client->validateChecksum($_GET["RETURN_AUTHCODE"], $_GET["ORDER_NUMBER"], $_GET["TIMESTAMP"], $_GET["PAID"], $_GET["METHOD"])) {
+    // Payment receipt is valid
+    // If needed, the used payment method can be found from the variable $_GET["METHOD"]
+    // and order number for the payment from the variable $_GET["ORDER_NUMBER"]
+}
+else {
+    // Payment receipt was not valid, possible payment fraud attempt
+}
+
+```
+
 # License
 MIT. See [LICENSE](LICENSE).
