@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * This file is part of Paytrail.
  *
  * (c) 2013 Nord Software
@@ -8,80 +8,146 @@
  * file that was distributed with this source code.
  */
 
-namespace NordSoftware\Paytrail\Object;
+namespace Paytrail\Object;
 
-use NordSoftware\Paytrail\Common\DataObject;
-use NordSoftware\Paytrail\Exception\TooManyProducts;
-use NordSoftware\Paytrail\Exception\CurrencyNotSupported;
-use NordSoftware\Paytrail\Exception\LocaleNotSupported;
+use Paytrail\Common\DataObject;
+use Paytrail\Exception\TooManyProducts;
+use Paytrail\Exception\CurrencyNotSupported;
+use Paytrail\Exception\LocaleNotSupported;
 
+/**
+ * Class Payment.
+ *
+ * @package Paytrail\Object
+ */
 class Payment extends DataObject
 {
+
+    /**
+     * Currency Euro.
+     *
+     * @var string CURRENCY_EUR
+     */
     const CURRENCY_EUR = 'EUR';
 
-    const LOCALE_FIFI  = 'fi_FI';
-    const LOCALE_SVSE  = 'sv_SE';
-    const LOCALE_ENUS  = 'en_US';
+    /**
+     * Finnish locale.
+     *
+     * @var string LOCALE_FIFI
+     */
+    const LOCALE_FIFI = 'fi_FI';
 
+    /**
+     * Swedish locale.
+     *
+     * @var string LOCALE_SVSE
+     */
+    const LOCALE_SVSE = 'sv_SE';
+
+    /**
+     * English US locale.
+     *
+     * @var string LOCALE_ENUS
+     */
+    const LOCALE_ENUS = 'en_US';
+
+    /**
+     * VAT included.
+     *
+     * @var int VAT_MODE_INCLUDED
+     */
     const VAT_MODE_INCLUDED = 1;
+
+    /**
+     * VAT excluded.
+     *
+     * @var int VAT_MODE_EXCLUDED
+     */
     const VAT_MODE_EXCLUDED = 0;
 
+    /**
+     * Max products.
+     *
+     * @var int MAX_PRODUCT_COUNT
+     */
     const MAX_PRODUCT_COUNT = 500;
 
     /**
-     * @var string
+     * The order number.
+     *
+     * @var string $orderNumber
      */
     protected $orderNumber;
 
     /**
-     * @var string
+     * The reference number.
+     *
+     * @var string $referenceNumber
      */
     protected $referenceNumber = '';
 
     /**
-     * @var string
+     * Description.
+     *
+     * @var string $description
      */
     protected $description = '';
 
     /**
-     * @var string
+     * Currency, defaults to Euro.
+     *
+     * @var string $currency
      */
     protected $currency = self::CURRENCY_EUR;
 
     /**
-     * @var string
+     * The locale, defaults to Finnish.
+     *
+     * @var string $locale
      */
     protected $locale = self::LOCALE_FIFI;
 
     /**
-     * @var int
+     * VAT mode, defaults to VAT included.
+     *
+     * @var int $vatMode
      */
     protected $vatMode = self::VAT_MODE_INCLUDED;
 
     /**
-     * @var \NordSoftware\Paytrail\Object\Contact
+     * The contact object.
+     *
+     * @var \Paytrail\Object\Contact $contact
      */
     protected $contact;
 
     /**
-     * @var \NordSoftware\Paytrail\Object\UrlSet
+     * The URL set object.
+     *
+     * @var \Paytrail\Object\UrlSet $urlSet
      */
     protected $urlSet;
 
     /**
-     * @var \NordSoftware\Paytrail\Object\Product[]
+     * List of product objects.
+     *
+     * @var \Paytrail\Object\Product[] $products
      */
     protected $products = array();
 
     /**
-     * @var array
+     * List of supported currencies.
+     *
+     * @var array $supportedCurrencies
      */
     static $supportedCurrencies = array(
         self::CURRENCY_EUR,
     );
 
     /**
-     * @var array
+     * List of supported locales.
+     *
+     * @var array $supportedLocales
      */
     static $supportedLocales = array(
         self::LOCALE_FIFI,
@@ -90,8 +156,11 @@ class Payment extends DataObject
     );
 
     /**
-     * @param \NordSoftware\Paytrail\Object\Product $product
-     * @throws \NordSoftware\Paytrail\Exception\TooManyProducts
+     * Add a product.
+     *
+     * @param \Paytrail\Object\Product $product The product to add.
+     *
+     * @throws \Paytrail\Exception\TooManyProducts
      */
     public function addProduct(Product $product)
     {
@@ -107,11 +176,14 @@ class Payment extends DataObject
     }
 
     /**
+     * Convert the payment object to an array.
+     *
      * @return array
      */
     public function toArray()
     {
         $array = array();
+
         $array['orderNumber'] = $this->orderNumber;
         if (isset($this->referenceNumber)) {
             $array['referenceNumber'] = $this->referenceNumber;
@@ -125,7 +197,7 @@ class Payment extends DataObject
         }
         $array['orderDetails'] = array(
             'includeVat' => $this->vatMode,
-            'products' => array(),
+            'products'   => array(),
         );
         if ($this->urlSet !== null) {
             $array['urlSet'] = $this->urlSet->toArray();
@@ -136,11 +208,14 @@ class Payment extends DataObject
         foreach ($this->products as $product) {
             $array['orderDetails']['products'][] = $product->toArray();
         }
+
         return $array;
     }
 
     /**
-     * @return string
+     * Get order number.
+     *
+     * @return string The order number.
      */
     public function getOrderNumber()
     {
@@ -148,7 +223,9 @@ class Payment extends DataObject
     }
 
     /**
-     * @return string
+     * Get reference number.
+     *
+     * @return string The reference number.
      */
     public function getReferenceNumber()
     {
@@ -156,7 +233,9 @@ class Payment extends DataObject
     }
 
     /**
-     * @return string
+     * Get description.
+     *
+     * @return string The description.
      */
     public function getDescription()
     {
@@ -164,19 +243,24 @@ class Payment extends DataObject
     }
 
     /**
-     * @param string $currency
-     * @throws \NordSoftware\Paytrail\Exception\CurrencyNotSupported
+     * Sets the currency.
+     *
+     * @param string $currency Currency to set.
+     *
+     * @throws \Paytrail\Exception\CurrencyNotSupported
      */
     public function setCurrency($currency)
     {
-        if (!in_array($currency, self::$supportedCurrencies)) {
+        if ( ! in_array($currency, self::$supportedCurrencies)) {
             throw new CurrencyNotSupported(sprintf('Currency "%s" is not supported.', $currency));
         }
         $this->currency = $currency;
     }
 
     /**
-     * @return string
+     * Get currency.
+     *
+     * @return string The currency.
      */
     public function getCurrency()
     {
@@ -184,19 +268,24 @@ class Payment extends DataObject
     }
 
     /**
-     * @param string $locale
-     * @throws @throws \NordSoftware\Paytrail\Exception\LocaleNotSupported
+     * Sets the locale.
+     *
+     * @param string $locale The locale to set.
+     *
+     * @throws @throws \Paytrail\Exception\LocaleNotSupported
      */
     public function setLocale($locale)
     {
-        if (!in_array($locale, self::$supportedLocales)) {
+        if ( ! in_array($locale, self::$supportedLocales)) {
             throw new LocaleNotSupported(sprintf('Locale "%s" is not supported.', $locale));
         }
         $this->locale = $locale;
     }
 
     /**
-     * @return string
+     * Get locale.
+     *
+     * @return string The locale.
      */
     public function getLocale()
     {
@@ -204,7 +293,9 @@ class Payment extends DataObject
     }
 
     /**
-     * @return int
+     * Get VAT mode.
+     *
+     * @return int The VAT mode.
      */
     public function getVatMode()
     {
@@ -212,7 +303,9 @@ class Payment extends DataObject
     }
 
     /**
-     * @return \NordSoftware\Paytrail\Object\Contact
+     * Get contact.
+     *
+     * @return \Paytrail\Object\Contact The contact object.
      */
     public function getContact()
     {
@@ -220,7 +313,9 @@ class Payment extends DataObject
     }
 
     /**
-     * @return \NordSoftware\Paytrail\Object\UrlSet
+     * Get URL set.
+     *
+     * @return \Paytrail\Object\UrlSet The URLSet object.
      */
     public function getUrlSet()
     {

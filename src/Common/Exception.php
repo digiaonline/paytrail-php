@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * This file is part of Paytrail.
  *
  * (c) 2013 Nord Software
@@ -8,10 +8,13 @@
  * file that was distributed with this source code.
  */
 
-namespace NordSoftware\Paytrail\Exception;
+namespace Paytrail\Common;
 
-use NordSoftware\Paytrail\Common\Exception;
-
-class LocaleNotSupported extends Exception
+/**
+ * Class Exception.
+ *
+ * @package Paytrail\Common
+ */
+class Exception extends \Exception
 {
 }

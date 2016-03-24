@@ -1,7 +1,7 @@
 paytrail-php
 ============
 
-[![Build Status](https://travis-ci.org/nordsoftware/paytrail-php.svg?branch=master)](https://travis-ci.org/nordsoftware/paytrail-php) [![Coverage Status](https://coveralls.io/repos/hugovk/paytrail-php/badge.png?branch=coveralls)](https://coveralls.io/r/hugovk/paytrail-php?branch=coveralls)
+[![Build Status](https://travis-ci.org/nordsoftware/paytrail-php.svg?branch=master)](https://travis-ci.org/nordsoftware/paytrail-php) [![Coverage Status](https://coveralls.io/repos/nordsoftware/paytrail-php/badge.png?branch=master)](https://coveralls.io/r/nordsoftware/paytrail-php?branch=master)
 
 Paytrail REST client for PHP.
 
@@ -12,12 +12,12 @@ Paytrail REST client for PHP.
 
 require(__DIR__ . '/vendor/autoload.php');
 
-use NordSoftware\Paytrail\Object\UrlSet;
-use NordSoftware\Paytrail\Object\Address;
-use NordSoftware\Paytrail\Object\Contact;
-use NordSoftware\Paytrail\Object\Payment;
-use NordSoftware\Paytrail\Object\Product;
-use NordSoftware\Paytrail\Http\Client;
+use Paytrail\Object\UrlSet;
+use Paytrail\Object\Address;
+use Paytrail\Object\Contact;
+use Paytrail\Object\Payment;
+use Paytrail\Object\Product;
+use Paytrail\Http\Client;
 
 $urlSet = new UrlSet;
 $urlSet->configure(array(
@@ -76,3 +76,24 @@ try {
 
 header('Location: ' . $result->getUrl());
 ```
+
+# Confirming a payment
+
+```php
+
+<?php
+$client = new Client('13466', '6pKF4jkv97zmqBJ3ZL8gUw5DfT2NMQ');
+$client->connect();
+if ($client->validateChecksum($_GET["RETURN_AUTHCODE"], $_GET["ORDER_NUMBER"], $_GET["TIMESTAMP"], $_GET["PAID"], $_GET["METHOD"])) {
+    // Payment receipt is valid
+    // If needed, the used payment method can be found from the variable $_GET["METHOD"]
+    // and order number for the payment from the variable $_GET["ORDER_NUMBER"]
+}
+else {
+    // Payment receipt was not valid, possible payment fraud attempt
+}
+
+```
+
+# License
+MIT. See [LICENSE](LICENSE).

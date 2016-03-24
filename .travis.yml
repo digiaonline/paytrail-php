@@ -1,18 +1,18 @@
 language: php
 
+# Use container-based infrastructure
+sudo: false
+
 php:
-  - 5.3
-  - 5.4
-  - 5.5
   - 5.6
+  - 7.0
   - hhvm
 
 before_script:
   - composer self-update
   - composer install --prefer-source
-  - composer update satooshi/php-coveralls --dev
 
-script: vendor/bin/codecept run unit --coverage --report --xml
+script: vendor/bin/codecept run unit --coverage --report --coverage-xml
 
 after_success:
  - mkdir build
@@ -22,9 +22,4 @@ after_success:
 
 matrix:
   allow_failures:
-    - php: 5.3
     - php: hhvm
-
-branches:
-  only:
-    - master

@@ -1,24 +1,33 @@
 {
-    "name": "nordsoftware/paytrail-php",
-    "description": "Paytrail REST client for PHP.",
-    "license": "BSD-3-Clause",
-    "authors": [
-        {
-            "name": "Christoffer Niska",
-            "email": "christoffer.niska@nordsoftware.com"
-        }
-    ],
-    "require": {
-        "php": ">=5.3.3",
-        "guzzle/guzzle": "~3.7"
+  "name": "nordsoftware/paytrail-php",
+  "description": "Paytrail REST client for PHP.",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Christoffer Niska",
+      "email": "christoffer.niska@nordsoftware.com"
     },
-    "require-dev": {
-        "codeception/codeception": "@stable",
-        "satooshi/php-coveralls": "dev-master"
-    },
-    "autoload": {
-        "psr-0": {
-            "NordSoftware": "src/"
-        }
+    {
+      "name": "Kenneth Söderlund",
+      "email": "kenneth.soderlund@nordsoftware.com"
     }
+  ],
+  "require": {
+    "php": ">=5.6",
+    "guzzlehttp/guzzle": "^6.1"
+  },
+  "require-dev": {
+    "codeception/codeception": "@stable",
+    "satooshi/php-coveralls": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Paytrail\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "classmap": [
+      "tests/"
+    ]
+  }
 }

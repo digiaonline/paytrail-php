@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * This file is part of Paytrail.
  *
  * (c) 2013 Nord Software
@@ -8,24 +8,39 @@
  * file that was distributed with this source code.
  */
 
-use Codeception\Util\Stub;
-use NordSoftware\Paytrail\Common\Object;
+use Paytrail\Common\Object;
 
+/**
+ * Class Dummy.
+ */
 class Dummy extends Object
 {
+
+    /**
+     * @var mixed $foo
+     */
     protected $foo;
 
+    /**
+     * @param mixed $foo
+     */
     public function setFoo($foo)
     {
         $this->foo = $foo;
     }
 
+    /**
+     * @return mixed
+     */
     public function getFoo()
     {
         return $this->foo;
     }
 }
 
+/**
+ * Class ObjectTest.
+ */
 class ObjectTest extends \Codeception\TestCase\Test
 {
    /**
@@ -33,6 +48,9 @@ class ObjectTest extends \Codeception\TestCase\Test
     */
     protected $codeGuy;
 
+    /**
+     * Test configuration.
+     */
     public function testConfigure()
     {
         $object = new Dummy;
@@ -45,7 +63,7 @@ class ObjectTest extends \Codeception\TestCase\Test
                 'bar' => 'bar',
             ));
             $this->assertNull($object->bar);
-        } catch (\NordSoftware\Paytrail\Exception\PropertyDoesNotExist $e) {
+        } catch (\Paytrail\Exception\PropertyDoesNotExist $e) {
             // this is the expected outcome.
         }
     }
