@@ -119,15 +119,15 @@ class Client extends Object
     /**
      * Validates the given checksum against the order.
      *
-     * @param string $checksum    Checksum to validate.
-     * @param string $orderNumber The order number.
-     * @param int    $timestamp   The timestamp of the order.
-     * @param string $paid        Payment paid.
-     * @param int    $method      The method.
+     * @param string      $checksum    Checksum to validate.
+     * @param string      $orderNumber The order number.
+     * @param int         $timestamp   The timestamp of the order.
+     * @param string|null $paid        Payment paid.
+     * @param int|null    $method      The method.
      *
      * @return bool
      */
-    public function validateChecksum($checksum, $orderNumber, $timestamp, $paid, $method)
+    public function validateChecksum($checksum, $orderNumber, $timestamp, $paid = null, $method = null)
     {
         return $checksum === $this->calculateChecksum($orderNumber, $timestamp, $paid, $method);
     }
@@ -135,16 +135,25 @@ class Client extends Object
     /**
      * Calculates the checksum.
      *
-     * @param string $orderNumber The order number.
-     * @param int    $timestamp   The timestamp of the order.
-     * @param string $paid        Payment paid.
-     * @param int    $method      The method.
+     * @param string      $orderNumber The order number.
+     * @param int         $timestamp   The timestamp of the order.
+     * @param string|null $paid        Payment paid.
+     * @param int|null    $method      The method.
      *
      * @return string
      */
-    protected function calculateChecksum($orderNumber, $timestamp, $paid, $method)
+    protected function calculateChecksum($orderNumber, $timestamp, $paid = null, $method = null)
     {
-        return strtoupper(md5("{$orderNumber}|{$timestamp}|{$paid}|{$method}|{$this->_apiSecret}"));
+        $data = array($orderNumber, $timestamp);
+        if ($paid !== null) {
+            $data[] = $paid;
+        }
+        if ($method !== null) {
+            $data[] = $method;
+        }
+        $data[] = $this->_apiSecret;
+
+        return strtoupper(md5(implode('|', $data)));
     }
 
     /**
