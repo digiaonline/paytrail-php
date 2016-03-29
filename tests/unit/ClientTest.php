@@ -51,6 +51,38 @@ class ClientTest extends \Codeception\TestCase\Test
     }
 
     /**
+     * Test payment checksum validation on successful transaction.
+     */
+    public function testValidateSuccessChecksum()
+    {
+        $client = $this->makeClient();
+        $client->connect();
+
+        $orderNumber = 1;
+        $timestamp = 1459256594;
+        $paid = '840a0b45ee';
+        $method = 1;
+        $returnAuthCode = '33BC65BC7C48B66B3BD765A07E910BCE';
+
+        $this->assertTrue($client->validateChecksum($returnAuthCode, $orderNumber, $timestamp, $paid, $method));
+    }
+
+    /**
+     * Validate checksum validation on failed trasaction.
+     */
+    public function testValidateFailureChecksum()
+    {
+        $client = $this->makeClient();
+        $client->connect();
+
+        $orderNumber = 1;
+        $timestamp = 1459256669;
+        $returnAuthCode = '076F5C44FF72EBCE892E9B32FD761597';
+
+        $this->assertTrue($client->validateChecksum($returnAuthCode, $orderNumber, $timestamp));
+    }
+
+    /**
      * Test setting of API version.
      *
      * @throws \Paytrail\Exception\ApiVersionNotSupported
