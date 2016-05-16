@@ -32,6 +32,13 @@ class Client extends Object
     const API_ENDPOINT = 'https://payment.paytrail.com';
 
     /**
+     * The base URL for getting the dynamic logo.
+     *
+     * @var string LOGO_BASE_URL
+     */
+    const LOGO_BASE_URL = 'https://img.paytrail.com/index.svm';
+
+    /**
      * The Paytrail API version.
      *
      * @var int $apiVersion
@@ -63,6 +70,27 @@ class Client extends Object
      * @var \GuzzleHttp\Client
      */
     private $_client;
+
+    /**
+     * Type of the logo, vertical or horizontal.
+     *
+     * @var string $logoType
+     */
+    protected $logoType;
+
+    /**
+     * How many columns to use in the logo.
+     *
+     * @var int $logoCols
+     */
+    protected $logoCols;
+
+    /**
+     * Whether to show the payment text on logo or not.
+     *
+     * @var int $logoText
+     */
+    protected $logoText;
 
     /**
      * @var array
@@ -234,5 +262,35 @@ class Client extends Object
             throw new ApiVersionNotSupported(sprintf('API version %d is not supported.', $apiVersion));
         }
         $this->apiVersion = $apiVersion;
+    }
+
+    /**
+     * Get the URL to the dynamic Paytrail logo.
+     *
+     * @return string
+     */
+    public function getLogoUrl()
+    {
+        $params = [
+            'id'   => $this->_apiKey,
+            'type' => $this->logoType,
+            'cols' => (int)$this->logoCols,
+            'text' => (int)$this->logoText,
+            'auth' => $this->calculateLogoAuth(),
+        ];
+
+        return self::LOGO_BASE_URL . '?' . http_build_query($params);
+    }
+
+    /**
+     * Calculates the auth code for use with the logo request.
+     *
+     * @return string
+     */
+    private function calculateLogoAuth()
+    {
+        $checksum = md5($this->_apiKey . $this->_apiSecret);
+
+        return substr($checksum, 0, 16);
     }
 }
