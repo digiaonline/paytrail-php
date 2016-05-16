@@ -46,7 +46,7 @@ class ClientTest extends \Codeception\TestCase\Test
         $client = $this->makeClient();
         $client->connect();
         $payment = $this->makePayment();
-        $result = $client->processPayment($payment);
+        $result  = $client->processPayment($payment);
         $this->assertEquals(1, $result->getOrderNumber());
     }
 
@@ -58,10 +58,10 @@ class ClientTest extends \Codeception\TestCase\Test
         $client = $this->makeClient();
         $client->connect();
 
-        $orderNumber = 1;
-        $timestamp = 1459256594;
-        $paid = '840a0b45ee';
-        $method = 1;
+        $orderNumber    = 1;
+        $timestamp      = 1459256594;
+        $paid           = '840a0b45ee';
+        $method         = 1;
         $returnAuthCode = '33BC65BC7C48B66B3BD765A07E910BCE';
 
         $this->assertTrue($client->validateChecksum($returnAuthCode, $orderNumber, $timestamp, $paid, $method));
@@ -75,11 +75,39 @@ class ClientTest extends \Codeception\TestCase\Test
         $client = $this->makeClient();
         $client->connect();
 
-        $orderNumber = 1;
-        $timestamp = 1459256669;
+        $orderNumber    = 1;
+        $timestamp      = 1459256669;
         $returnAuthCode = '076F5C44FF72EBCE892E9B32FD761597';
 
         $this->assertTrue($client->validateChecksum($returnAuthCode, $orderNumber, $timestamp));
+    }
+
+    /**
+     * Test creating a horizontal logo.
+     */
+    public function testHorizontalLogoUrl()
+    {
+        $client = $this->makeClient();
+
+        $client->configure(['logoText' => 1, 'logoCols' => 15, 'logoType' => 'horizontal']);
+        $url = $client->getLogoUrl();
+
+        $this->assertEquals(Client::LOGO_BASE_URL . '?id=13466&type=horizontal&cols=15&text=1&auth=f6483cce23771e8f',
+            $url);
+    }
+
+    /**
+     * Test creating a vertical logo.
+     */
+    public function testVerticalLogoUrl()
+    {
+        $client = $this->makeClient();
+
+        $client->configure(['logoText' => 0, 'logoCols' => 2, 'logoType' => 'vertical']);
+        $url = $client->getLogoUrl();
+
+        $this->assertEquals(Client::LOGO_BASE_URL . '?id=13466&type=vertical&cols=2&text=0&auth=f6483cce23771e8f',
+            $url);
     }
 
     /**
