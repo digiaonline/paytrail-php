@@ -98,6 +98,22 @@ class Client extends Object
     static $supportedApiVersions = array(1);
 
     /**
+     * Client constructor.
+     *
+     * @param string|null $apiKey
+     * @param string|null $apiSecret
+     */
+    public function __construct($apiKey = null, $apiSecret = null)
+    {
+        if ($apiKey !== null) {
+            $this->_apiKey = $apiKey;
+        }
+        if ($apiSecret !== null) {
+            $this->_apiSecret = $apiSecret;
+        }
+    }
+
+    /**
      * Connect client.
      *
      * @param string $url The URL to connect to, defaults to API_ENDPOINT.
