@@ -150,7 +150,7 @@ class ClientTest extends \Codeception\TestCase\Test
         $address->configure(array(
             'streetAddress' => 'Test street 1',
             'postalCode'    => '12345',
-            'postOffice'    => 'Helsinki',
+            'postalOffice'    => 'Helsinki',
             'countryCode'   => 'FI',
         ));
 
