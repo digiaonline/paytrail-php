@@ -133,7 +133,6 @@ class ClientTest extends \Codeception\TestCase\Test
             'successUrl'      => 'https://www.demoshop.com/sv/success',
             'failureUrl'      => 'https://www.demoshop.com/sv/failure',
             'notificationUrl' => 'https://www.demoshop.com/sv/notify',
-            'pendingUrl'      => 'https://www.demoshop.com/sv/pending',
         ));
 
         return $urlSet;
