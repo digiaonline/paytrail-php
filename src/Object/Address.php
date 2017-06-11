@@ -33,7 +33,7 @@ class Address extends DataObject
     /**
      * @var string $postOffice
      */
-    protected $postOffice;
+    protected $postalOffice;
 
     /**
      * @var string $countryCode
@@ -48,7 +48,7 @@ class Address extends DataObject
         return array(
             'street'       => $this->streetAddress,
             'postalCode'   => $this->postalCode,
-            'postalOffice' => $this->postOffice,
+            'postalOffice' => $this->postalOffice,
             'country'      => $this->countryCode,
         );
     }
@@ -74,13 +74,13 @@ class Address extends DataObject
     }
 
     /**
-     * Get post office.
+     * Get postal office.
      *
      * @return string The post office.
      */
-    public function getPostOffice()
+    public function getPostalOffice()
     {
-        return $this->postOffice;
+        return $this->postalOffice;
     }
 
     /**
