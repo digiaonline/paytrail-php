@@ -133,7 +133,6 @@ class ClientTest extends \Codeception\TestCase\Test
             'successUrl'      => 'https://www.demoshop.com/sv/success',
             'failureUrl'      => 'https://www.demoshop.com/sv/failure',
             'notificationUrl' => 'https://www.demoshop.com/sv/notify',
-            'pendingUrl'      => 'https://www.demoshop.com/sv/pending',
         ));
 
         return $urlSet;
@@ -150,7 +149,7 @@ class ClientTest extends \Codeception\TestCase\Test
         $address->configure(array(
             'streetAddress' => 'Test street 1',
             'postalCode'    => '12345',
-            'postOffice'    => 'Helsinki',
+            'postalOffice'    => 'Helsinki',
             'countryCode'   => 'FI',
         ));
 

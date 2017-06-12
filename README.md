@@ -24,14 +24,13 @@ $urlSet->configure(array(
   'successUrl'      => 'https://www.demoshop.com/sv/success',
   'failureUrl'      => 'https://www.demoshop.com/sv/failure',
   'notificationUrl' => 'https://www.demoshop.com/sv/notify',
-  'pendingUrl'      => 'https://www.demoshop.com/sv/pending',
 ));
 
 $address = new Address;
 $address->configure(array(
   'streetAddress'   => 'Test street 1',
   'postalCode'      => '12345',
-  'postOffice'      => 'Helsinki',
+  'postalOffice'    => 'Helsinki',
   'countryCode'     => 'FI',
 ));
 
@@ -57,7 +56,7 @@ $product = new Product;
 $product->configure(array(
   'title'           => 'Test product',
   'code'            => '01234',
-  'quantity'        => 1.00,
+  'amount'          => 1.00,
   'price'           => 19.90,
   'vat'             => 23.00,
   'discount'        => 0.00,
