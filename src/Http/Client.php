@@ -11,7 +11,7 @@
 namespace Paytrail\Http;
 
 use GuzzleHttp\Psr7\Request;
-use Paytrail\Common\Object;
+use Paytrail\Common\BaseObject;
 use Paytrail\Exception\PaymentFailed;
 use Paytrail\Exception\ApiVersionNotSupported;
 use Paytrail\Object\Payment;
@@ -21,7 +21,7 @@ use Paytrail\Object\Payment;
  *
  * @package Paytrail\Http
  */
-class Client extends Object
+class Client extends BaseObject
 {
 
     /**
