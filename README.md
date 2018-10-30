@@ -1,7 +1,8 @@
 paytrail-php
 ============
 
-[![Build Status](https://travis-ci.org/nordsoftware/paytrail-php.svg?branch=master)](https://travis-ci.org/nordsoftware/paytrail-php) [![Coverage Status](https://coveralls.io/repos/github/nordsoftware/paytrail-php/badge.svg?branch=master)](https://coveralls.io/github/nordsoftware/paytrail-php?branch=master)
+[![Build Status](https://travis-ci.org/digiaonline/paytrail-php.svg?branch=master)](https://travis-ci.org/digiaonline/paytrail-php)
+[![Coverage Status](https://coveralls.io/repos/github/digiaonline/paytrail-php/badge.svg?branch=master)](https://coveralls.io/github/digiaonline/paytrail-php?branch=master)
 
 Paytrail REST client for PHP.
 
