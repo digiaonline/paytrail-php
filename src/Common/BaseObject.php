@@ -17,7 +17,7 @@ use Paytrail\Exception\PropertyDoesNotExist;
  *
  * @package Paytrail\Common
  */
-abstract class Object
+abstract class BaseObject
 {
 
     /**
